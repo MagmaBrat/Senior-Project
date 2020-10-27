@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void goForgot(View view){
+        Intent intent=new Intent(MainActivity.this,ForgotActivity.class);
+        startActivity(intent);
+    }
+
     public void signIn(View view){
         boolean problem=false;
         EditText userfield=(EditText) findViewById(R.id.userfield);

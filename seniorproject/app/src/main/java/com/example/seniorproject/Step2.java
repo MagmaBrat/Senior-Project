@@ -236,7 +236,6 @@ public class Step2 extends Fragment {
                         }
 
                     }
-                    System.out.println("dsad");
                 }
             }
         });
