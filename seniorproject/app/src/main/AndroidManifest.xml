@@ -22,7 +22,7 @@
             ></activity>
         <activity android:name=".ForgotActivity" />
         <activity android:name=".signup2Activity" />
-        <activity android:name=".AfterloginActivity" />
+        <activity android:name=".AfterloginActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

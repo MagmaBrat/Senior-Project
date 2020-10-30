@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.parse.ParseException;
@@ -30,9 +32,12 @@ public class ForgotStep1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootview=(ViewGroup) inflater.inflate(R.layout.forgot1,container,false);
+        final ViewGroup rootview=(ViewGroup) inflater.inflate(R.layout.forgot1,container,false);
         Button forgot=rootview.findViewById(R.id.forgotbut);
         final EditText emailfield=rootview.findViewById(R.id.forgotfield);
+        final ConstraintLayout constraintLayout=rootview.findViewById(R.id.forgotcon);
+        final ProgressBar progressBar=rootview.findViewById(R.id.forgotbar);
+        progressBar.setVisibility(View.INVISIBLE);
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,6 +45,7 @@ public class ForgotStep1 extends Fragment {
                 if (email.equals("")){
                     Toast.makeText(getActivity(),"Please enter your email!",Toast.LENGTH_LONG).show();
                 }else{
+                    App.makeClickable(View.VISIBLE,false,constraintLayout,progressBar);
                     ParseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
                         @Override
                         public void done(ParseException e) {
@@ -58,6 +64,7 @@ public class ForgotStep1 extends Fragment {
                                 AlertDialog alertDialog=builder.create();
                                 alertDialog.show();
                             }
+                            App.makeClickable(View.INVISIBLE,true,constraintLayout,progressBar);
                         }
                     });
                 }

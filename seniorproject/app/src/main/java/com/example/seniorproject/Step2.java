@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.parse.ParseException;
@@ -166,7 +168,7 @@ public class Step2 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootview=(ViewGroup) inflater.inflate(R.layout.step2,container,false);
+        final ViewGroup rootview=(ViewGroup) inflater.inflate(R.layout.step2,container,false);
         texts=new ArrayList<>();
         texts.add((EditText) rootview.findViewById(R.id.mailo));
         texts.add((EditText) rootview.findViewById(R.id.repeato));
@@ -205,6 +207,10 @@ public class Step2 extends Fragment {
                                 user.put("gender","Female");
                             }
                             user.put("phone",texts.get(2).getText().toString());
+                            final ConstraintLayout constraintLayout=rootview.findViewById(R.id.signcon);
+                            final ProgressBar progressBar=rootview.findViewById(R.id.signbar);
+                            progressBar.setVisibility(View.INVISIBLE);
+                            App.makeClickable(View.VISIBLE,false,constraintLayout,progressBar);
                             user.signUpInBackground(new SignUpCallback() {
                                 @Override
                                 public void done(ParseException e) {
@@ -229,6 +235,7 @@ public class Step2 extends Fragment {
                                             alertDialog.show();
                                         }
                                     }
+                                    App.makeClickable(View.INVISIBLE,true,constraintLayout,progressBar);
                                 }
                             });
                         } catch (java.text.ParseException e) {

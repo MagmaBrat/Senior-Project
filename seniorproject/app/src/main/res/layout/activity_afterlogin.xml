@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundo"
-    tools:context=".AfterloginActivity">
+    tools:context=".AfterloginActivity"
+    tools:openDrawer="start">
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,9 +18,23 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/mytoolbar"
-            android:theme="@style/MyDialogTheme"
-            app:popupTheme="@style/MyDialogTheme"
-            android:elevation="4dp"></androidx.appcompat.widget.Toolbar>
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:gravity="center"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Senior Project"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
         
         <FrameLayout
             android:layout_width="match_parent"
@@ -28,12 +43,14 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="goScan"
-        android:text="Button"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="299dp" />
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/mynav"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"
+        ></com.google.android.material.navigation.NavigationView>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>

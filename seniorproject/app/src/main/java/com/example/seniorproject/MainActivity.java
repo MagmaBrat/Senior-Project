@@ -3,6 +3,7 @@ package com.example.seniorproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -30,6 +32,8 @@ import com.parse.SaveCallback;
 public class MainActivity extends AppCompatActivity {
 
     DatabaseReference db;
+    ConstraintLayout constraintLayout;
+    ProgressBar progressBar;
 
     public void saveFire(View v){
         Member member=new Member("Omen","Void");
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             alert2.setVisibility(View.INVISIBLE);
         }
         if (!problem){
+            App.makeClickable(View.VISIBLE,false,constraintLayout,progressBar);
             ParseUser.logInInBackground(user, pass, new LogInCallback() {
                 @Override
                 public void done(ParseUser user, ParseException e) {
@@ -93,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         AlertDialog alertDialog=builder.create();
                         alertDialog.show();
                     }
+                    App.makeClickable(View.INVISIBLE,true,constraintLayout,progressBar);
                 }
             });
         }else{
@@ -120,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        constraintLayout=findViewById(R.id.maincon);
+        progressBar=findViewById(R.id.mainbar);
+        progressBar.setVisibility(View.INVISIBLE);
         db= FirebaseDatabase.getInstance().getReference().child("Test");
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -151,7 +160,8 @@ public class MainActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser!=null) {
             // do stuff with the user
-            ParseUser.logOut();
+            Intent intent=new Intent(MainActivity.this,AfterloginActivity.class);
+            startActivity(intent);
         }
 
 
