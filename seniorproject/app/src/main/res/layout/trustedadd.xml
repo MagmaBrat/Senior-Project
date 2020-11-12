@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundo">
+
+    <Button
+        android:id="@+id/addcontact"
+        android:layout_width="160dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="65dp"
+        android:background="@color/mygreeno"
+        android:text="Add"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactnick"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/contactuser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#c8c7cc"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:inputType="textPersonName"
+        android:textColor="@color/textocolaro"
+        android:textColorHint="#c8c7cc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13999999"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <EditText
+        android:id="@+id/contactnick"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#c8c7cc"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:inputType="textPersonName"
+        android:textColor="@color/textocolaro"
+        android:textColorHint="#c8c7cc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactuser"
+        app:layout_constraintVertical_bias="0.136"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/textocolaro"
+        android:textSize="15sp"
+        android:text="Contact's Username"
+        app:layout_constraintBottom_toTopOf="@+id/contactuser"
+        app:layout_constraintEnd_toEndOf="@+id/contactuser"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/contactuser"
+        app:layout_constraintTop_toBottomOf="@+id/contacttoolbar"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Contact's Nickname (optional)"
+        android:textColor="@color/textocolaro"
+        app:layout_constraintBottom_toTopOf="@+id/contactnick"
+        app:layout_constraintEnd_toEndOf="@+id/contactnick"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/contactnick"
+        app:layout_constraintTop_toBottomOf="@+id/contactuser"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/userinvalid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="*invalid user"
+        android:visibility="invisible"
+        android:textColor="@android:color/holo_red_light"
+        app:layout_constraintBottom_toBottomOf="@+id/textView16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

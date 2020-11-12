@@ -8,6 +8,7 @@
     android:background="#282b3a"
     tools:context=".MainActivity">
 
+
     <EditText
         android:id="@+id/userfield"
         android:layout_width="0dp"

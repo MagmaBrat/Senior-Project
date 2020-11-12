@@ -1,22 +1,28 @@
 package com.example.seniorproject;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.gridlayout.widget.GridLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -31,6 +37,41 @@ public class DashboardFragment extends Fragment {
     ArrayList<MainModel> models;
     RecyclerView recycler;
     MainAdapter mainAdapter;
+    ProgressBar progressBar;
+    ConstraintLayout constraintLayout;
+    AfterloginActivity activity;
+
+    public DashboardFragment(ProgressBar bar,AfterloginActivity a){
+        progressBar=bar;
+        activity=a;
+    }
+
+    public void doScan(){
+        IntentIntegrator integrator=new IntentIntegrator(getActivity());
+        integrator.setCaptureActivity(QRActivity.class);
+        integrator.setOrientationLocked(false);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+        integrator.setPrompt("Scanning Code");
+        integrator.initiateScan();
+    }
+
+
+
+    public void setListeners(GridLayout gridLayout){
+        gridLayout.getChildAt(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doScan();
+            }
+        });
+        gridLayout.getChildAt(3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.current=new SendFragment(activity);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,activity.current).commit();
+            }
+        });
+    }
 
     @Nullable
     @Override
@@ -42,10 +83,9 @@ public class DashboardFragment extends Fragment {
         query.orderByDescending("createdAt");
         query.setLimit(6);
         models=new ArrayList<>();
-        final ConstraintLayout constraintLayout=rootview.findViewById(R.id.dashcon);
-        final ProgressBar progressBar=rootview.findViewById(R.id.dashbar);
-        progressBar.setVisibility(View.INVISIBLE);
+        constraintLayout=rootview.findViewById(R.id.dashcon);
         App.makeClickable(View.VISIBLE,false,constraintLayout,progressBar);
+
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -79,6 +119,8 @@ public class DashboardFragment extends Fragment {
                 App.makeClickable(View.INVISIBLE,true,constraintLayout,progressBar);
             }
         });
+        GridLayout gridLayout=rootview.findViewById(R.id.gridLayout);
+        setListeners(gridLayout);
         return rootview;
     }
 }

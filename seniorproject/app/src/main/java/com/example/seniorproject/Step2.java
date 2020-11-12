@@ -183,6 +183,8 @@ public class Step2 extends Fragment {
         alert3=rootview.findViewById(R.id.step2alert3);
         alert4=rootview.findViewById(R.id.step2alert4);
         radioGroup=rootview.findViewById(R.id.gendero);
+        final ProgressBar progressBar=rootview.findViewById(R.id.signbar);
+        progressBar.setVisibility(View.INVISIBLE);
         setTextFields(rootview);
         nexto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,8 +210,6 @@ public class Step2 extends Fragment {
                             }
                             user.put("phone",texts.get(2).getText().toString());
                             final ConstraintLayout constraintLayout=rootview.findViewById(R.id.signcon);
-                            final ProgressBar progressBar=rootview.findViewById(R.id.signbar);
-                            progressBar.setVisibility(View.INVISIBLE);
                             App.makeClickable(View.VISIBLE,false,constraintLayout,progressBar);
                             user.signUpInBackground(new SignUpCallback() {
                                 @Override
