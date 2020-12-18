@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForgotActivity">
+    tools:context="forgot.ForgotActivity">
 
 
-    <com.example.seniorproject.CustomViewPager
+    <com.example.seniorproject.signproc.CustomViewPager
         android:id="@+id/mypager2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

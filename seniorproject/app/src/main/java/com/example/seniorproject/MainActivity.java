@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
+import com.example.seniorproject.afterlog.AfterloginActivity;
+import com.example.seniorproject.signproc.signup2Activity;
+import com.example.seniorproject.storeapp.StoreAfterLoginActivity;
+import com.example.seniorproject.storeapp.StoreLoginActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,17 +26,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import forgot.ForgotActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     DatabaseReference db;
     ConstraintLayout constraintLayout;
     ProgressBar progressBar;
+
+    public void goStore(View view){
+        Intent intent=new Intent(MainActivity.this, StoreLoginActivity.class);
+        startActivity(intent);
+    }
 
     public void saveFire(View v){
         Member member=new Member("Omen","Void");
@@ -53,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goForgot(View view){
-        Intent intent=new Intent(MainActivity.this,ForgotActivity.class);
+        Intent intent=new Intent(MainActivity.this, ForgotActivity.class);
         startActivity(intent);
     }
 
@@ -83,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void done(ParseUser user, ParseException e) {
                     if (user!=null){
-                        Intent intent=new Intent(MainActivity.this,AfterloginActivity.class);
+                        Intent intent=new Intent(MainActivity.this, AfterloginActivity.class);
                         startActivity(intent);
                     }else{
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.MyDialogTheme);
@@ -118,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goTemp2(View view){
-        Intent intent=new Intent(MainActivity.this,signup2Activity.class);
+        Intent intent=new Intent(MainActivity.this, signup2Activity.class);
         startActivity(intent);
     }
 
@@ -159,9 +168,14 @@ public class MainActivity extends AppCompatActivity {
         });
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser!=null) {
+            if (currentUser.getString("type").equals("customer")){
+                Intent intent=new Intent(MainActivity.this,AfterloginActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent=new Intent(MainActivity.this, StoreAfterLoginActivity.class);
+                startActivity(intent);
+            }
             // do stuff with the user
-            Intent intent=new Intent(MainActivity.this,AfterloginActivity.class);
-            startActivity(intent);
         }
 
 

@@ -9,7 +9,6 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="330dp"
-        app:cardBackgroundColor="@color/textocolaro"
         android:layout_height="400dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
@@ -27,7 +26,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/confirmbut"
+                android:id="@+id/sendconfirmbut"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -68,7 +67,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/confirmnick"
+                    android:id="@+id/sendconfirmnick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -87,7 +86,7 @@
                     android:textColor="@color/textocoloro2" />
 
                 <TextView
-                    android:id="@+id/confirmuser"
+                    android:id="@+id/confirmamount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -106,7 +105,7 @@
                     android:textColor="@color/textocoloro2" />
 
                 <TextView
-                    android:id="@+id/confirmfull"
+                    android:id="@+id/confirmreason"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
