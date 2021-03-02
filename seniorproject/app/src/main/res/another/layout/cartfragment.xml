@@ -39,7 +39,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/cartsdonebut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -66,12 +66,11 @@
         android:text="Clear"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/textView35"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBottom_toBottomOf="@+id/cartsdonebut"
+        app:layout_constraintEnd_toStartOf="@+id/cartsdonebut"
+        app:layout_constraintHorizontal_bias="0.354"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/cartsdonebut" />
 
     <TextView
         android:id="@+id/textView34"
@@ -115,11 +114,21 @@
         app:layout_constraintTop_toBottomOf="@+id/storename"
         tools:layout_editor_absoluteX="16dp">
 
-        <ListView
-            android:id="@+id/cartlist"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_weight="10"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="10">
+
+            <LinearLayout
+                android:id="@+id/cartlist"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </LinearLayout>
+
+        </ScrollView>
+
 
         <ImageView
             android:id="@+id/addproduct"

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,6 +89,9 @@ public class AddCardFragment extends Fragment {
                                 obj.save();
                                 object.getRelation("cards").add(obj);
                                 object.save();
+                                Toast.makeText(activity,"Card added successfully",Toast.LENGTH_LONG).show();
+                                activity.current=new ListCardsFragment(activity);
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,activity.current).commit();
                             }catch (ParseException e1){
                                 e1.printStackTrace();
                             }

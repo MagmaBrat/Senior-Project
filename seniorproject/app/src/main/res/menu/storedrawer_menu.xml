@@ -13,6 +13,10 @@
             android:icon="@drawable/itempackage"
             android:title="Products"/>
 
+        <item android:id="@+id/nav_withdraw"
+            android:icon="@drawable/withdraw"
+            android:title="Withdrawal"/>
+
         <item android:id="@+id/nav_storelogout"
             android:icon="@drawable/power"
             android:title="Log Off"/>

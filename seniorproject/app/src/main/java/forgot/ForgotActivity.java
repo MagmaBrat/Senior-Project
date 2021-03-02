@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.example.seniorproject.R;
 import com.example.seniorproject.SlidePageAdapter;
 import com.example.seniorproject.signproc.CustomViewPager;
+import com.example.seniorproject.signproc.Step3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class ForgotActivity extends AppCompatActivity {
         pager=(CustomViewPager) findViewById(R.id.mypager2);
         List<Fragment> fragments=new ArrayList<>();
         fragments.add(new ForgotStep1(pager));
+        fragments.add(new Step3());
         pagerAdapter=new SlidePageAdapter(getSupportFragmentManager(),fragments);
         pager.setAdapter(pagerAdapter);
     }

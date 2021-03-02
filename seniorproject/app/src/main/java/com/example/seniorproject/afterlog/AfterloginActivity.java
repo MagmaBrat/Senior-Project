@@ -3,7 +3,6 @@ package com.example.seniorproject.afterlog;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -12,10 +11,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -25,8 +22,11 @@ import com.example.seniorproject.AddCardFragment;
 import com.example.seniorproject.App;
 import com.example.seniorproject.ListCardsFragment;
 import com.example.seniorproject.MainActivity;
-import com.example.seniorproject.ProfileFragment;
+import com.example.seniorproject.profile.ProfileFragment;
 import com.example.seniorproject.R;
+
+import com.example.seniorproject.transactions.TransactionSingleFragment;
+import com.example.seniorproject.transactions.TransactionsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wallet.IsReadyToPayRequest;
@@ -34,8 +34,6 @@ import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
 import com.google.android.material.navigation.NavigationView;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.parse.GetCallback;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
@@ -58,15 +56,16 @@ public class AfterloginActivity extends AppCompatActivity {
     PaymentsClient paymentsClient;
     ProgressBar progressBar;
     AfterloginActivity thisactivity;
+    NavigationView navigation;
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
 
     public void doScan(){
-        IntentIntegrator integrator=new IntentIntegrator(this);
-        integrator.setCaptureActivity(QRActivity.class);
-        integrator.setOrientationLocked(false);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        integrator.setPrompt("Scanning Code");
-        integrator.initiateScan();
+//        IntentIntegrator integrator=new IntentIntegrator(this);
+//        integrator.setCaptureActivity(QRActivity.class);
+//        integrator.setOrientationLocked(false);
+//        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+//        integrator.setPrompt("Scanning Code");
+//        integrator.initiateScan();
     }
 
     public static JSONObject basicConfigJson(){
@@ -87,8 +86,6 @@ public class AfterloginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Boolean> task) {
                 if (task.isSuccessful()){
-                    Log.i("wajdi",task.getException()+"");
-                    Log.i("info",task.getResult()+"");
                     if (task.getResult()){
 //                        button.setText("meow");
 //                        button.setOnClickListener(new View.OnClickListener() {
@@ -111,10 +108,8 @@ public class AfterloginActivity extends AppCompatActivity {
 //                            }
 //                        });
                     }else{
-                        Log.i("wajdi","Failed");
                     }
                 }else{
-                    Log.i("wajdi",task.getException().getMessage()+"");
                 }
             }
         });
@@ -152,40 +147,10 @@ public class AfterloginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        IntentResult result=IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        Log.i("bassam",requestCode+"/ "+resultCode);
-        if (result!=null){
-            if (result.getContents()!=null){
-                String trans=result.getContents();
-                String[] parts=trans.split("@");
-                if (parts.length==3){
-                    if (parts[0].equals("Senior Project")){
-                        showPayment();
-                    }
-
-                }else{
-                    AlertDialog.Builder builder=new AlertDialog.Builder(this, R.style.MyDialogTheme).setMessage("The QRCode that" +
-                            "that you tries to scan is invalid or not clear")
-                            .setTitle("Invalid QRCode!")
-                            .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    doScan();
-                                }
-                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                }
-                            }).setIcon(android.R.drawable.ic_dialog_alert);;
-                    AlertDialog dialog=builder.create();
-                    dialog.show();
-                }
-            }
-        }else{
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
+
+
 
     @Override
     protected void onResume() {
@@ -213,6 +178,10 @@ public class AfterloginActivity extends AppCompatActivity {
         });
     }
 
+    public void uncheckMenu(){
+        navigation.getCheckedItem().setChecked(false);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -232,7 +201,7 @@ public class AfterloginActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         constraintLayout=findViewById(R.id.afterconst);
         toggle.syncState();
-        NavigationView navigation=findViewById(R.id.mynav);
+        navigation=findViewById(R.id.mynav);
         if (savedInstanceState ==null){
             current=new DashboardFragment(progressBar,thisactivity);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,current).commit();
@@ -244,15 +213,15 @@ public class AfterloginActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.nav_prof:
-                        current=new ProfileFragment();
+                        current=new ProfileFragment(thisactivity);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,current).commit();
                         break;
                     case R.id.nav_home:
                         current=new DashboardFragment(progressBar,thisactivity);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,current).commit();
                         break;
-                    case R.id.nav_music:
-                        current=new AddCardFragment(thisactivity);
+                    case R.id.nav_cardo:
+                        current=new ListCardsFragment(thisactivity);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,current).commit();
                         break;
                     case R.id.nav_logout:
@@ -281,6 +250,13 @@ public class AfterloginActivity extends AppCompatActivity {
 
     }
 
+    public  void makeClickable(int visibility, boolean clickable){
+        progressBar.setVisibility(visibility);
+        for (int i=0;i<constraintLayout.getChildCount();i++){
+            constraintLayout.getChildAt(i).setClickable(clickable);
+        }
+    }
+
     public void getCurrentFragment(){
         if (current instanceof DashboardFragment){
             constraintLayout=((DashboardFragment) current).constraintLayout;
@@ -297,6 +273,15 @@ public class AfterloginActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         }else if (current instanceof AddCardFragment){
             current=new ListCardsFragment(this);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,current).commit();
+        }else if(current instanceof TransactionSingleFragment){
+            current=new TransactionsFragment(this);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,current).commit();
+        }
+        else if(!(current instanceof DashboardFragment)){
+            current=new DashboardFragment(progressBar,this);
+            navigation.setCheckedItem(R.id.nav_home);
+            navigation.getCheckedItem().setChecked(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,current).commit();
         }
         else{

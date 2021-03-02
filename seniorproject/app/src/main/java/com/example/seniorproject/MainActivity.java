@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.parse.LogInCallback;
+import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -92,8 +93,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void done(ParseUser user, ParseException e) {
                     if (user!=null){
-                        Intent intent=new Intent(MainActivity.this, AfterloginActivity.class);
-                        startActivity(intent);
+                        if (user.getString("type").equals("customer")){
+                            Intent intent=new Intent(MainActivity.this, AfterloginActivity.class);
+                            startActivity(intent);
+                        }else if (user.getString("type").equals("store")){
+                            Intent intent=new Intent(MainActivity.this, StoreAfterLoginActivity.class);
+                            startActivity(intent);
+                        }
                     }else{
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.MyDialogTheme);
                         builder.setMessage(e.getMessage())
@@ -175,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent=new Intent(MainActivity.this, StoreAfterLoginActivity.class);
                 startActivity(intent);
             }
-            // do stuff with the user
         }
 
 

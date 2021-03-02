@@ -1,6 +1,7 @@
 package com.example.seniorproject.afterlog;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,8 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seniorproject.App;
 import com.example.seniorproject.ListCardsFragment;
+import com.example.seniorproject.QRactivity;
 import com.example.seniorproject.R;
-import com.google.zxing.integration.android.IntentIntegrator;
+import com.example.seniorproject.analysis.AnalysisFragment;
+import com.example.seniorproject.transactions.TransactionsFragment;
+import com.example.seniorproject.withdrawal.WithdrawFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -46,12 +50,14 @@ public class DashboardFragment extends Fragment {
     }
 
     public void doScan(){
-        IntentIntegrator integrator=new IntentIntegrator(getActivity());
-        integrator.setCaptureActivity(QRActivity.class);
-        integrator.setOrientationLocked(false);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        integrator.setPrompt("Scanning Code");
-        integrator.initiateScan();
+//        IntentIntegrator integrator=new IntentIntegrator(getActivity());
+//        integrator.setCaptureActivity(QRActivity.class);
+//        integrator.setOrientationLocked(false);
+//        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+//        integrator.setPrompt("Scanning Code");
+//        integrator.initiateScan();
+        Intent intent=new Intent(activity, QRactivity.class);
+        startActivity(intent);
     }
 
 
@@ -60,13 +66,26 @@ public class DashboardFragment extends Fragment {
         gridLayout.getChildAt(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                activity.uncheckMenu();
                 doScan();
+//                Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+//                intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+//                startActivityForResult(intent, 0);
+            }
+        });
+        gridLayout.getChildAt(1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.current=new AnalysisFragment();
+                activity.uncheckMenu();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,activity.current).commit();
             }
         });
         gridLayout.getChildAt(3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 activity.current=new SendFragment(activity);
+                activity.uncheckMenu();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,activity.current).commit();
             }
         });
@@ -74,6 +93,20 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.current=new ListCardsFragment(activity);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,activity.current).commit();
+            }
+        });
+        gridLayout.getChildAt(5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.current=new TransactionsFragment(activity);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,activity.current).commit();
+            }
+        });
+        gridLayout.getChildAt(2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.current=new WithdrawFragment(activity);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,activity.current).commit();
             }
         });

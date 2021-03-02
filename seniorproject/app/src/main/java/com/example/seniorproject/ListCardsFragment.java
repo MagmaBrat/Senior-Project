@@ -43,7 +43,8 @@ public class ListCardsFragment extends Fragment {
             nums.clear();
             exps.clear();
             types.clear();
-            final ParseQuery<ParseUser> query=ParseUser.getQuery();;
+            final ParseQuery<ParseUser> query=ParseUser.getQuery();
+            activity.makeClickable(View.VISIBLE,false);
             query.getInBackground(user.getObjectId(), new GetCallback<ParseUser>() {
                 @Override
                 public void done(ParseUser object, ParseException e) {
@@ -68,6 +69,7 @@ public class ListCardsFragment extends Fragment {
                     }else{
                         e.printStackTrace();
                     }
+                    activity.makeClickable(View.INVISIBLE,true);
                 }
             });
         }

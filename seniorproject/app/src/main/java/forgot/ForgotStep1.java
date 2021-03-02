@@ -19,7 +19,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.seniorproject.App;
 import com.example.seniorproject.R;
+import com.example.seniorproject.SlidePageAdapter;
+import com.example.seniorproject.senddialog.SendConfirm;
 import com.example.seniorproject.signproc.CustomViewPager;
+import com.example.seniorproject.signproc.Step3;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
@@ -54,6 +57,9 @@ public class ForgotStep1 extends Fragment {
                         public void done(ParseException e) {
                             if (e==null){
                                 Log.i("info","sent");
+                                SlidePageAdapter adapter=(SlidePageAdapter)custom.getAdapter();
+                                ((Step3)adapter.getItem(1)).changeTexts("we have sent an email to your mailbox\nmake sure to check it","Email sent Successfully");
+                                custom.setCurrentItem(1);
                             }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
                                 builder.setMessage(e.getMessage())

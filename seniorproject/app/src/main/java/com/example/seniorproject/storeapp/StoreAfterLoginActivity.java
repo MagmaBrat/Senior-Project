@@ -14,16 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.example.seniorproject.AddCardFragment;
-import com.example.seniorproject.App;
 import com.example.seniorproject.MainActivity;
-import com.example.seniorproject.ProfileFragment;
 import com.example.seniorproject.R;
-import com.example.seniorproject.afterlog.AfterloginActivity;
-import com.example.seniorproject.afterlog.DashboardFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.parse.GetCallback;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class StoreAfterLoginActivity extends AppCompatActivity {
@@ -31,6 +29,8 @@ public class StoreAfterLoginActivity extends AppCompatActivity {
     public DrawerLayout drawer;
     public Fragment current;
     ProgressBar progressBar;
+    String storeid;
+    StoreAfterLoginActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class StoreAfterLoginActivity extends AppCompatActivity {
         Toolbar toolbar=findViewById(R.id.storetoolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        activity=this;
         progressBar=findViewById(R.id.storebar);
         progressBar.setVisibility(View.INVISIBLE);
         drawer=findViewById(R.id.storedrawer);
@@ -51,6 +52,22 @@ public class StoreAfterLoginActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.storefragment_container,current).commit();
             navigation.setCheckedItem(R.id.nav_cart);
         }
+            ParseUser user=ParseUser.getCurrentUser();
+            if (user!=null){
+                ParseQuery<ParseUser> query=ParseUser.getQuery();
+                query.getInBackground(user.getObjectId(), new GetCallback<ParseUser>() {
+                    @Override
+                    public void done(ParseUser object, ParseException e) {
+                        if (e==null){
+                            ParseQuery<ParseObject> query1=new ParseQuery<ParseObject>("Store");
+                            String id=object.getParseObject("storeid").getObjectId();
+                            storeid=id;
+                        }else{
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -60,7 +77,11 @@ public class StoreAfterLoginActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.storefragment_container,current).commit();
                         break;
                     case R.id.nav_itempackage:
-                        current=new AddItemFragment();
+                        current=new AddItemFragment(activity);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.storefragment_container,current).commit();
+                        break;
+                    case R.id.nav_withdraw:
+                        current=new StoreWithdrawFragment(activity);
                         getSupportFragmentManager().beginTransaction().replace(R.id.storefragment_container,current).commit();
                         break;
                     case R.id.nav_storelogout:
@@ -84,5 +105,16 @@ public class StoreAfterLoginActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (!(current instanceof CartFragment)){
+            current=new CartFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.storefragment_container,current).commit();
+        }else{
+            this.finishAffinity();
+        }
     }
 }

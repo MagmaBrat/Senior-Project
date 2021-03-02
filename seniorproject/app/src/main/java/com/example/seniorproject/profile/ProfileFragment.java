@@ -1,6 +1,7 @@
-package com.example.seniorproject;
+package com.example.seniorproject.profile;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.example.seniorproject.R;
+import com.example.seniorproject.afterlog.AfterloginActivity;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -30,7 +34,15 @@ public class ProfileFragment extends Fragment {
 
     ArrayList<EditText> texts;
     ParseUser user;
+    TextView save,cancel;
+    ArrayList<String> buffer;
+    AfterloginActivity activity;
+    ImageView imageView;
+    boolean enabled=false;
 
+    public ProfileFragment(AfterloginActivity a){
+        activity=a;
+    }
 
     public boolean isEmpty(){
         boolean isempty=false;
@@ -45,6 +57,7 @@ public class ProfileFragment extends Fragment {
     public void saveChanges(){
         ParseQuery<ParseUser> query=ParseUser.getQuery();
         if (user!=null){
+            activity.makeClickable(View.VISIBLE,false);
             query.getInBackground(user.getObjectId(), new GetCallback<ParseUser>() {
                 @Override
                 public void done(ParseUser object, ParseException e) {
@@ -70,9 +83,19 @@ public class ProfileFragment extends Fragment {
                                 @Override
                                 public void done(ParseException e) {
                                     if (e==null){
+                                        Toast.makeText(getActivity(),"Changes saved successfully",Toast.LENGTH_LONG).show();
+                                        buttonVisibility(View.INVISIBLE);
+                                        for (int i=0;i<texts.size();i++){
+                                            texts.get(i).getBackground().setTint(getResources().getColor(R.color.backgroundo));
+                                            texts.get(i).setEnabled(false);
+                                            buffer.set(i,texts.get(i).getText().toString());
+                                        }
+                                        buttonVisibility(View.GONE);
+                                        imageView.setEnabled(true);
+                                        imageView.setAlpha(1f);
                                         Log.i("wajdi","successful");
                                     }else{
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                                         builder.setMessage(e.getMessage())
                                                 .setTitle("Alert")
                                                 .setCancelable(false)
@@ -90,9 +113,15 @@ public class ProfileFragment extends Fragment {
                     }else{
                         e.printStackTrace();
                     }
+                    activity.makeClickable(View.INVISIBLE,true);
                 }
             });
         }
+    }
+
+    public void buttonVisibility(int visibility){
+        cancel.setVisibility(visibility);
+        save.setVisibility(visibility);
     }
 
     @Nullable
@@ -101,14 +130,27 @@ public class ProfileFragment extends Fragment {
         ViewGroup rootview=(ViewGroup) inflater.inflate(R.layout.profilefragment,container,false);
         final TextView profilepic=rootview.findViewById(R.id.profilepic);
         texts=new ArrayList<>();
+        buffer=new ArrayList<>();
         texts.add((EditText) rootview.findViewById(R.id.firstprof));
         texts.add((EditText) rootview.findViewById(R.id.lastprof));
         texts.add((EditText) rootview.findViewById(R.id.emailprof));
         texts.add((EditText) rootview.findViewById(R.id.phoneprof));
+        for (EditText x:texts){
+            buffer.add(x.getText().toString());
+        }
+        TextView changepass=rootview.findViewById(R.id.profilechangepass);
+        changepass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(activity,PasswordActivity.class);
+                startActivity(intent);
+            }
+        });
         final EditText editText=rootview.findViewById(R.id.birthprof);
         user=ParseUser.getCurrentUser();
         if (user!=null){
             ParseQuery<ParseUser> query=ParseUser.getQuery();
+            activity.makeClickable(View.VISIBLE,false);
             query.getInBackground(user.getObjectId(), new GetCallback<ParseUser>() {
                 @Override
                 public void done(ParseUser object, ParseException e) {
@@ -127,37 +169,55 @@ public class ProfileFragment extends Fragment {
                     }else{
                         e.printStackTrace();
                     }
+                    activity.makeClickable(View.INVISIBLE,true);
                 }
             });
         }
-//        texts.add((EditText) rootview.findViewById(R.id.birthprof));
-        final ImageView imageView=rootview.findViewById(R.id.editprof);
+        imageView=rootview.findViewById(R.id.editprof);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (EditText x:texts){
-                    x.getBackground().setTint(getResources().getColor(R.color.textocolaro));
-                    x.setEnabled(true);
+                if (enabled){
+                    enabled=false;
+                    for (int i=0;i<texts.size();i++){
+                        texts.get(i).getBackground().setTint(getResources().getColor(R.color.backgroundo));
+                        texts.get(i).setEnabled(false);
+                        texts.get(i).setText(buffer.get(i));
+                    }
+                    buttonVisibility(View.GONE);
+                    imageView.setEnabled(true);
+                    imageView.setAlpha(1f);
+                }else{
+                    enabled=true;
+                    for (EditText x:texts){
+                        x.getBackground().setTint(getResources().getColor(R.color.textocolaro));
+                        x.setEnabled(true);
+                    }
+                    buttonVisibility(View.VISIBLE);
+                    view.setAlpha(0.4f);
                 }
-                view.setEnabled(false);
-                view.setAlpha(0.4f);
+
             }
         });
-        Button button=rootview.findViewById(R.id.savecprofbut);
-        button.setOnClickListener(new View.OnClickListener() {
+        save=rootview.findViewById(R.id.savecprofbut);
+        cancel=rootview.findViewById(R.id.cancelprofbut);
+        save.setVisibility(View.INVISIBLE);
+        cancel.setVisibility(View.INVISIBLE);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveChanges();
             }
         });
-        Button button1=rootview.findViewById(R.id.cancelprofbut);
-        button1.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (EditText x:texts){
-                    x.getBackground().setTint(getResources().getColor(R.color.backgroundo));
-                    x.setEnabled(false);
+                for (int i=0;i<texts.size();i++){
+                    texts.get(i).getBackground().setTint(getResources().getColor(R.color.backgroundo));
+                    texts.get(i).setEnabled(false);
+                    texts.get(i).setText(buffer.get(i));
                 }
+                buttonVisibility(View.GONE);
                 imageView.setEnabled(true);
                 imageView.setAlpha(1f);
             }

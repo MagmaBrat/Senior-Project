@@ -75,10 +75,8 @@ public class SendFragment extends Fragment {
                         try {
                             List<ParseObject> objects=query1.find();
                             if (objects!=null){
-                                Log.i("wajdi",objects.size()+"");
                                 for (int i=0;i<objects.size();i++){
                                     ParseObject obj=objects.get(i).getParseObject("user").fetchIfNeeded();
-                                    Log.i("wajdi",obj.getObjectId());
                                     parseObjects.add(obj);
                                     nicknames.add(objects.get(i).getString("nickname"));
                                     contacts.add(new Contact(objects.get(i).getString("nickname"),  obj));
@@ -124,13 +122,7 @@ public class SendFragment extends Fragment {
             public void onClick(View view) {
                 TrustedDialog custom=new TrustedDialog(activity,fragment);
                 custom.show(getFragmentManager(),"addons_fragment");
-//                Dialog  dialog=new TrustedDialog((AfterloginActivity) getActivity());
-//                dialog.setContentView(R.layout.trusteddialog);
-//                dialog.show();
-//                Window window = dialog.getWindow();
-//                window.setGravity(Gravity.BOTTOM);
-//                window.setTitle("woof");
-//                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,(int) (getScreenHeight(getActivity()) * 0.8));
+
 
             }
         });

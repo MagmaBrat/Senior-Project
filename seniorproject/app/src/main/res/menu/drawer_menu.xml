@@ -11,9 +11,9 @@
         <item android:id="@+id/nav_home"
             android:icon="@drawable/home"
             android:title="Home"/>
-        <item android:id="@+id/nav_music"
-            android:icon="@drawable/ic_music"
-            android:title="Music"/>
+        <item android:id="@+id/nav_cardo"
+            android:icon="@drawable/cards"
+            android:title="Cards"/>
         <item android:id="@+id/nav_logout"
             android:icon="@drawable/power"
             android:title="Log Off"/>

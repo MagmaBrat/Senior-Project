@@ -1,12 +1,16 @@
 package com.example.seniorproject.storeapp;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,6 +25,8 @@ public class CartAdapter extends BaseAdapter {
     ArrayList<String> temps;
     HashMap<String,Float> hashMap;
     ArrayList<String> names;
+    ArrayList<String> cats;
+    ArrayList<String> quants;
 
 
     public CartAdapter(Context c,ArrayList<String> t,ArrayList<String> n){
@@ -29,6 +35,8 @@ public class CartAdapter extends BaseAdapter {
         names=new ArrayList<>();
         names.add("Select an Item");
         names.addAll(n);
+        cats=new ArrayList<>();
+        quants=new ArrayList<>();
     }
 
     @Override
@@ -43,8 +51,17 @@ public class CartAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        final long id = i;
+
+        return id;
     }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -52,7 +69,9 @@ public class CartAdapter extends BaseAdapter {
         view=inflater.inflate(R.layout.cartsrow,null);
         TextView textView=view.findViewById(R.id.cartitem);
         textView.setText("Item#"+(i+1));
+
         Spinner spinner=view.findViewById(R.id.cartspinner);
+//        final EditText quantview=view.findViewById(R.id.cartquantity);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item,names);
         spinner.setAdapter(adapter);
         return view;

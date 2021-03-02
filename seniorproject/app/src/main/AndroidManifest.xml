@@ -3,6 +3,7 @@
     package="com.example.seniorproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -15,13 +16,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".storeapp.StoreAfterLoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".QRactivity"></activity>
+        <activity android:name=".storeapp.QrWithdrawActivity"></activity>
+        <activity android:name=".storeapp.QrScanActivity" />
+        <activity
+            android:name=".storeapp.StoreAfterLoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".storeapp.AddProductFragment" />
         <activity android:name=".storeapp.StoreLoginActivity" />
 
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".afterlog.QRActivity"
@@ -29,6 +40,7 @@
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name="forgot.ForgotActivity" />
+        <activity android:name=".profile.PasswordActivity" />
         <activity android:name=".signproc.signup2Activity" />
         <activity
             android:name=".afterlog.AfterloginActivity"
