@@ -1,7 +1,6 @@
 package com.example.seniorproject.trustdialog;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +59,6 @@ public class TrustedAdd extends Fragment {
                                     ParseObject obj = ParseObject.createWithoutData("_User",objects.get(0).getObjectId());
                                     query1.whereEqualTo("user",obj);
                                     List<ParseObject> objects1=query1.find();
-                                    Log.i("wajdi",objects1.size()+"");
                                     if (objects1.size()==0){
                                         String nick="";
                                         if (!cnick.getText().toString().equals("")){

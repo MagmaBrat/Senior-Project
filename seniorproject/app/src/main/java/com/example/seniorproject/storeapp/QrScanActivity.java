@@ -6,18 +6,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seniorproject.R;
-import com.example.seniorproject.SlidePageAdapter;
-import com.example.seniorproject.trustdialog.TrustedDone;
 import com.google.zxing.WriterException;
 import com.parse.FunctionCallback;
-import com.parse.Parse;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -28,7 +24,6 @@ import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -71,10 +66,8 @@ public class QrScanActivity extends AppCompatActivity {
             @Override
             public void onTick(long l) {
                 isrunning=true;
-                Log.i("wajdi",l+"");
                 if (l%2000<1000){
                     try {
-                        Log.i("wajdi","reading");
                         ParseQuery<ParseObject> query=new ParseQuery<ParseObject>("Pending");
                         final ParseObject object=query.get(temp.getObjectId());
                         String userid=object.getString("userid");
@@ -82,10 +75,8 @@ public class QrScanActivity extends AppCompatActivity {
                             if (object.getString("payment").equals("Alpha")){
                                 ParseUser destuser=ParseUser.getQuery().get(userid);
                                 final String username=destuser.getUsername();
-                                Log.i("monther","its done "+username);
                                 float balance=destuser.getNumber("balance").floatValue();
                                 if ((balance-total)>=0){
-                                    Log.i("monther","sss "+total);
                                     Map<String, String> parameters = new HashMap<String, String>();
                                     parameters.put("userid",userid);
                                     parameters.put("val",String.valueOf(total*-1));
@@ -195,7 +186,6 @@ public class QrScanActivity extends AppCompatActivity {
             quants=intent.getIntegerArrayListExtra("quants");
             subtotal=intent.getFloatExtra("subtotal",0f);
             total=intent.getFloatExtra("total",0f);
-            Log.i("monther",total+"");
             store=intent.getStringExtra("store");
             storename=intent.getStringExtra("storename");
             imageView=findViewById(R.id.qrscancode);

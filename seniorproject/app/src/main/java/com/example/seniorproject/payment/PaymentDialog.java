@@ -108,7 +108,6 @@ public class PaymentDialog extends DialogFragment {
     @Override
     public void onActivityCreated(Bundle arg0) {
         super.onActivityCreated(arg0);
-
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int screenWidth = ViewGroup.LayoutParams.MATCH_PARENT;
         int screenHeight = (int) (metrics.heightPixels * 0.87);

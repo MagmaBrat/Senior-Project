@@ -2,7 +2,6 @@ package com.example.seniorproject.withdrawdialog;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.seniorproject.R;
 import com.example.seniorproject.SlidePageAdapter;
-import com.example.seniorproject.payment.PaymentDone;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -81,10 +79,8 @@ public class WithdrawConfirm extends Fragment {
                                                         @Override
                                                         public void done(ParseObject object, ParseException e) {
                                                             if (e==null){
-                                                                Log.i("monther","hello "+object.getString("status"));
                                                                 if (object.getString("status").equals("S")){
                                                                     object.deleteInBackground();
-                                                                    Log.i("wajdi","done");
                                                                     dialog.setIconGesture(3);
                                                                     dialog.addonsviewpager.setCurrentItem(1);
                                                                     cancel();

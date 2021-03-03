@@ -1,7 +1,6 @@
 package com.example.seniorproject.transactions;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,11 +121,9 @@ public class TransactionSingleFragment extends Fragment {
                                             item.quant=x.getNumber("quantity").toString();
                                             item.istax=false;
                                             String id=x.getParseObject("item").getObjectId();
-                                            Log.i("monther",id);
                                             ParseQuery<ParseObject> query2= new ParseQuery<ParseObject>("Product");
                                             ParseObject y=query2.get(id);
                                             item.name=y.getString("name");
-                                            Log.i("monther",item.name);
                                             item.price=y.getNumber("price").toString();
                                             items.add(item);
                                         }catch (ParseException e1){
@@ -160,7 +157,6 @@ public class TransactionSingleFragment extends Fragment {
                                     adapter.notifyDataSetChanged();
                                 }
                                 else{
-                                    Log.i("monther","mmmm");
                                     e.printStackTrace();
                                 }
                             }

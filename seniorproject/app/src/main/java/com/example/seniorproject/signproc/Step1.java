@@ -244,10 +244,10 @@ public class Step1 extends Fragment {
                     @Override
                     public void done(Map<String, Object> mapObject, ParseException e) {
                         if (e == null) {
-                            Log.i("monther", mapObject.get("answer").toString());
+                            Log.i("info", mapObject.get("answer").toString());
                         }
                         else {
-                            Log.i("monther",e.getMessage());
+                            Log.i("info",e.getMessage());
                         }
                     }
                 });

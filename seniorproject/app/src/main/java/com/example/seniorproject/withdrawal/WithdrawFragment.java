@@ -19,7 +19,6 @@ import com.example.seniorproject.QRactivity;
 import com.example.seniorproject.R;
 import com.example.seniorproject.afterlog.AfterloginActivity;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;

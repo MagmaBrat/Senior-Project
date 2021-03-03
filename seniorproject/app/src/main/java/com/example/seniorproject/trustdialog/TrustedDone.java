@@ -1,7 +1,6 @@
 package com.example.seniorproject.trustdialog;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,6 @@ public class TrustedDone extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Log.i("wajdi","dono");
                 if (istrusted){
                     dialog.dismiss();
                 }else{

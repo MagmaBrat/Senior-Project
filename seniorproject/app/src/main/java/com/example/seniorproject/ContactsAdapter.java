@@ -1,7 +1,6 @@
 package com.example.seniorproject;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,6 @@ public class ContactsAdapter extends BaseAdapter {
         char firsto=contact.user.getString("firstname").charAt(0);
         char lastoo=contact.user.getString("lastname").charAt(0);
         String name=String.valueOf(firsto)+String.valueOf(lastoo);
-        Log.i("wajdi",contact.user.getString("firstname"));
         prof.setText(name);
         nicko.setText(contact.nickname);
         return view;

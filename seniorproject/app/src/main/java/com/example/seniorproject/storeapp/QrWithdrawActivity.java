@@ -20,7 +20,6 @@ import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -63,7 +62,6 @@ public class QrWithdrawActivity extends AppCompatActivity {
             @Override
             public void onTick(long l) {
                 isrunning=true;
-                Log.i("wajdi",l+"");
                 if (l%2000<1000){
                     try {
                         Log.i("wajdi","reading");
@@ -75,7 +73,6 @@ public class QrWithdrawActivity extends AppCompatActivity {
 //                            final String username=destuser.getUsername();
                             float balance=destuser.getNumber("balance").floatValue();
                             if ((balance-amount)>=0){
-                                Log.i("monther","sss "+amount);
                                 Map<String, String> parameters = new HashMap<String, String>();
                                 parameters.put("userid",userid);
                                 parameters.put("val",String.valueOf(amount*-1));
@@ -96,7 +93,7 @@ public class QrWithdrawActivity extends AppCompatActivity {
                                                     @Override
                                                     public void done(ParseException e) {
                                                         if (e==null){
-                                                            Log.i("azir","Sucessful");
+                                                            Log.i("info","Sucessful");
                                                         }else{
                                                             e.printStackTrace();
                                                         }

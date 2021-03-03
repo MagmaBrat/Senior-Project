@@ -2,7 +2,6 @@ package forgot;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,6 @@ public class ForgotStep1 extends Fragment {
                         @Override
                         public void done(ParseException e) {
                             if (e==null){
-                                Log.i("info","sent");
                                 SlidePageAdapter adapter=(SlidePageAdapter)custom.getAdapter();
                                 ((Step3)adapter.getItem(1)).changeTexts("we have sent an email to your mailbox\nmake sure to check it","Email sent Successfully");
                                 custom.setCurrentItem(1);

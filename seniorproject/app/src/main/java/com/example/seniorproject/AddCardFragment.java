@@ -3,7 +3,6 @@ package com.example.seniorproject;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,7 +118,6 @@ public class AddCardFragment extends Fragment {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    Log.i("monther",cardView.getType()+"");
                     int index=Integer.parseInt(x.getTag().toString());
                     String str=charSequence.toString();
                     if (index==0){

@@ -1,7 +1,6 @@
 package com.example.seniorproject.trustdialog;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,10 +77,10 @@ public class TrustedConfirm extends Fragment {
                                 } catch (ParseException e1) {
                                     e1.printStackTrace();
                                     dialog.setIconGesture(1);
-                                    Log.i("osama",e1.getMessage());
+                                    e1.printStackTrace();
                                 }
                             }else{
-                                Log.i("wajdi",e.getMessage());
+                                e.printStackTrace();
                             }
                         }
                     });

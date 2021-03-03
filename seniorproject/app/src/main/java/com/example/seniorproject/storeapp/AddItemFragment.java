@@ -2,7 +2,6 @@ package com.example.seniorproject.storeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,17 +45,14 @@ public class AddItemFragment extends Fragment {
                 @Override
                 public void done(ParseUser object, ParseException e) {
                     if (e==null){
-                        Log.i("wajdi","hello");
                         ParseQuery<ParseObject> query1=new ParseQuery<ParseObject>("Store");
                         query1.getInBackground(object.getParseObject("storeid").getObjectId(), new GetCallback<ParseObject>() {
                             @Override
                             public void done(ParseObject object1, ParseException e1) {
                                 if (e1==null){
-                                    Log.i("wajdi","hello");
                                     ParseQuery<ParseObject> query2=object1.getRelation("products").getQuery();
                                     try {
                                         List<ParseObject> objects=query2.find();
-                                        Log.i("wajdi","hello");
                                         for (ParseObject obj:objects){
 
                                             Product product=new Product(

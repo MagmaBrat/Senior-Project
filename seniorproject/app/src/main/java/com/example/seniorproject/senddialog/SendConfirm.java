@@ -81,24 +81,23 @@ public class SendConfirm extends Fragment {
                                     @Override
                                     public void done(Map<String, Object> mapObject, ParseException e) {
                                         if (e == null) {
-                                            Log.i("monther","success");
                                             dialog.setIconGesture(3);
                                             viewPager.setCurrentItem(2);
                                             SlidePageAdapter adapter=(SlidePageAdapter)viewPager.getAdapter();
                                             ((TrustedDone)adapter.getItem(2)).showPage();
                                         }
                                         else {
-                                            Log.i("monther",e.getMessage());
+                                           e.printStackTrace();
                                         }
                                     }
                                 });
 
                             }else{
-                                Log.i("info",e.getMessage());
+                                e.printStackTrace();
                             }
 
                         }catch (ParseException e1){
-                            Log.i("info",e1.getMessage());
+                            e.printStackTrace();
                         }
                     }
                 });

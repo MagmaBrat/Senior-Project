@@ -3,7 +3,6 @@ package com.example.seniorproject.profile;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +92,6 @@ public class ProfileFragment extends Fragment {
                                         buttonVisibility(View.GONE);
                                         imageView.setEnabled(true);
                                         imageView.setAlpha(1f);
-                                        Log.i("wajdi","successful");
                                     }else{
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                                         builder.setMessage(e.getMessage())

@@ -1,7 +1,6 @@
 package com.example.seniorproject.withdrawdialog;
 
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -26,14 +25,7 @@ import com.example.seniorproject.OnSwipeTouchListener;
 import com.example.seniorproject.QRactivity;
 import com.example.seniorproject.R;
 import com.example.seniorproject.SlidePageAdapter;
-import com.example.seniorproject.payment.PaymentAdd;
-import com.example.seniorproject.payment.PaymentConfirm;
-import com.example.seniorproject.payment.PaymentDone;
-import com.example.seniorproject.trustdialog.TrustedAdd;
-import com.example.seniorproject.trustdialog.TrustedConfirm;
-import com.example.seniorproject.trustdialog.TrustedDone;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 

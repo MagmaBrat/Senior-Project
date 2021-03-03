@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ public class StoreLoginActivity extends AppCompatActivity {
     TextView alert1,alert2;
 
     public void signIn(View view){
-        Log.i("wajdi","done");
         boolean isempty=false;
         String username=user.getText().toString();
         String password=pass.getText().toString();
@@ -38,12 +36,10 @@ public class StoreLoginActivity extends AppCompatActivity {
         }else{
             alert2.setVisibility(View.INVISIBLE);
         }
-        Log.i("wajdi",isempty+"");
         if (!isempty){
             ParseUser.logInInBackground(username, password, new LogInCallback() {
                 @Override
                 public void done(ParseUser user, ParseException e) {
-                    Log.i("wajdi","u wut m8");
                     if (e==null){
                         if (user.getString("type").equals("store")){
                             Intent intent=new Intent(StoreLoginActivity.this,StoreAfterLoginActivity.class);

@@ -2,7 +2,6 @@ package com.example.seniorproject.payment;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,6 @@ public class PaymentDone extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Log.i("wajdi","dono");
                 dialog.dismiss();
             }
 
