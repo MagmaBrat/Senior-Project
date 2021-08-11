@@ -128,8 +128,9 @@ public class QrScanActivity extends AppCompatActivity {
                                 ParseQuery<ParseObject> q=new ParseQuery<ParseObject>("Card");
                                 ParseObject card=q.get(object.getString("payment"));
                                 float cardb=card.getNumber("balance").floatValue();
-                                if ((total-cardb)>=0){
-                                    card.add("balance",(-1*total));
+                                if ((cardb-total)>=0){
+                                    card.increment("balance",(-1*total));
+                                    card.save();
                                     ParseObject receipt = new ParseObject("Receipt");
                                     receipt.put("username",username);
                                     receipt.put("storeid",store);

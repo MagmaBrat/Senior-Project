@@ -222,8 +222,8 @@ public class CartFragment extends Fragment {
                 ArrayList<String> ids=new ArrayList<>();
                 ArrayList<Integer> qs=new ArrayList<>();
                 for (int i=0;i<linearLayout.getChildCount();i++){
-                    Spinner spinner=linearLayout.getChildAt(0).findViewWithTag("spin"+i);
-                    EditText editText=linearLayout.getChildAt(0).findViewWithTag("text"+i);
+                    Spinner spinner=linearLayout.getChildAt(i).findViewWithTag("spin"+i);
+                    EditText editText=linearLayout.getChildAt(i).findViewWithTag("text"+i);
                     if (hashMap.containsKey(spinner.getSelectedItem().toString())){
                         if (!editText.getText().toString().equals("")){
                             ids.add(hashMap.get(spinner.getSelectedItem().toString()).objectID);

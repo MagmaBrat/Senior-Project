@@ -3,6 +3,7 @@ package com.example.seniorproject.profile;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -133,9 +134,7 @@ public class ProfileFragment extends Fragment {
         texts.add((EditText) rootview.findViewById(R.id.lastprof));
         texts.add((EditText) rootview.findViewById(R.id.emailprof));
         texts.add((EditText) rootview.findViewById(R.id.phoneprof));
-        for (EditText x:texts){
-            buffer.add(x.getText().toString());
-        }
+
         TextView changepass=rootview.findViewById(R.id.profilechangepass);
         changepass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +159,9 @@ public class ProfileFragment extends Fragment {
                         texts.get(1).setText(object.getString("lastname"));
                         texts.get(2).setText(object.getEmail());
                         texts.get(3).setText(object.getString("phone"));
+                        for (EditText x:texts){
+                            buffer.add(x.getText().toString());
+                        }
                         Date date=object.getDate("birth");
                         SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
                         String birth=format.format(date);
